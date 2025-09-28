@@ -1,0 +1,9 @@
+
+fastapi
+uvicorn[standard]
+sqlalchemy
+pymysql
+passlib[bcrypt]
+semantic-version>=2.10.0
+pydantic[email]
+cryptography
