@@ -1,0 +1,52 @@
+# Sistema de Reservas - La Forja Esperanza
+# Requerimientos del proyecto
+
+# Framework principal para la interfaz gráfica
+flet>=0.18.0
+
+# Módulos de Python estándar que estás usando explícitamente:
+# threading - Para carrusel automático de imágenes (importado en ventana_principal.py)
+# time - Para temporizador del carrusel (importado en ventana_principal.py)
+
+# Nota: threading y time son parte de la biblioteca estándar de Python,
+# no necesitan instalación separada, pero se documentan aquí por claridad.
+
+# Dependencias adicionales recomendadas para desarrollo
+# (Estas se instalarán automáticamente con flet, pero las listamos para claridad)
+
+# Para manejo de fechas y tiempo (útil para reservas)
+# datetime (incluido en Python estándar)
+
+# Para validación de emails y datos de formularios
+# re (incluido en Python estándar)
+
+# Dependencias opcionales para funcionalidades futuras:
+# Para base de datos (descomenta si planeas usar)
+# sqlite3 (incluido en Python estándar)
+# sqlalchemy>=2.0.0
+
+# Para manejo de archivos JSON (configuraciones, datos)
+# json (incluido en Python estándar)
+
+# Para logging y depuración
+# logging (incluido en Python estándar)
+
+# Para validación de formularios (opcional)
+# email-validator>=2.0.0
+
+# Para manejo de fechas avanzado (opcional)
+# python-dateutil>=2.8.0
+
+# Para encriptación de contraseñas (recomendado para seguridad)
+# bcrypt>=4.0.0
+
+# Para variables de entorno (configuración)
+# python-dotenv>=1.0.0
+
+# Versión mínima de Python requerida: 3.8+
+
+# Instrucciones de instalación:
+# pip install -r requirements.txt
+
+# Para desarrollo:
+# pip install -r requirements.txt --upgrade
