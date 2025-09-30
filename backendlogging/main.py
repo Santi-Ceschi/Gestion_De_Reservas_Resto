@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from database import Base, engine
 from routers import users
 from fastapi.middleware.cors import CORSMiddleware
+from routers.register import router as register_router
 
 # Crear tablas si no existen
 Base.metadata.create_all(bind=engine)
@@ -23,9 +24,10 @@ app.add_middleware(
     allow_headers=["*"],                       # Permite todos los encabezados
 )
 
+
 # Rutas
 app.include_router(users.router)
-
+app.include_router(register_router)
 @app.get("/")
 def root():
     return {"mensaje": "API LaForja funcionando 🚀"}
