@@ -7,3 +7,4 @@ passlib[bcrypt]
 semantic-version>=2.10.0
 pydantic[email]
 cryptography
+bcrypt==4.3.0
