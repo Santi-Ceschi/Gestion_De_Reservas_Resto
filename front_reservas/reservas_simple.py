@@ -172,13 +172,13 @@ def main(page: ft.Page):
                             ),
                             ft.Row([
                                 ft.IconButton(
-                                    icon=ft.icons.EDIT,
+                                    icon=ft.Icons.EDIT,
                                     icon_color=ft.Colors.BLUE,
                                     tooltip="Editar reserva",
                                     on_click=editar_reserva(reserva)
                                 ),
                                 ft.IconButton(
-                                    icon=ft.icons.DELETE,
+                                    icon=ft.Icons.DELETE,
                                     icon_color=ft.Colors.RED,
                                     tooltip="Cancelar reserva",
                                     on_click=cancelar_reserva(reserva)
