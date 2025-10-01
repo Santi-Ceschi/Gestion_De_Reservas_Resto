@@ -28,6 +28,7 @@ def main(page: ft.Page):
                 "fecha": fecha,
                 "hora": hora,
                 "personas": personas,
+                "comentarios": "Sin comentarios",
                 "estado": "Confirmada"
             }
             
@@ -56,6 +57,7 @@ def main(page: ft.Page):
                     bgcolor=ft.Colors.RED
                 )
             )
+            page.update()
     
     def cancelar_reserva(reserva):
         def on_cancel(e):
@@ -68,6 +70,68 @@ def main(page: ft.Page):
                 )
             )
         return on_cancel
+    
+    def editar_reserva(reserva):
+        def on_edit(e):
+            # Campos del diálogo de edición
+            edit_nombre = ft.TextField(label="Nombre completo", value=reserva['nombre'], width=300)
+            edit_telefono = ft.TextField(label="Teléfono", value=reserva['telefono'], width=300)
+            edit_fecha = ft.TextField(label="Fecha (DD/MM/YYYY)", value=reserva['fecha'], width=300)
+            edit_hora = ft.TextField(label="Hora (HH:MM)", value=reserva['hora'], width=300)
+            edit_personas = ft.TextField(label="Número de personas", value=reserva['personas'], width=300)
+            
+            def guardar_cambios(e):
+                if all([edit_nombre.value, edit_telefono.value, edit_fecha.value, edit_hora.value, edit_personas.value]):
+                    # Actualizar la reserva
+                    reserva['nombre'] = edit_nombre.value
+                    reserva['telefono'] = edit_telefono.value
+                    reserva['fecha'] = edit_fecha.value
+                    reserva['hora'] = edit_hora.value
+                    reserva['personas'] = edit_personas.value
+                    
+                    # Actualizar la lista
+                    actualizar_lista()
+                    
+                    # Cerrar diálogo
+                    page.dialog.open = False
+                    page.update()
+                    
+                    # Mostrar mensaje de éxito
+                    page.show_snack_bar(
+                        ft.SnackBar(
+                            content=ft.Text("✅ Reserva actualizada exitosamente", color=ft.Colors.WHITE),
+                            bgcolor=ft.Colors.GREEN
+                        )
+                    )
+                    page.update()
+                else:
+                    page.show_snack_bar(
+                        ft.SnackBar(
+                            content=ft.Text("❌ Completa todos los campos", color=ft.Colors.WHITE),
+                            bgcolor=ft.Colors.RED
+                        )
+                    )
+                    page.update()
+            
+            def cancelar_edicion(e):
+                page.dialog.open = False
+                page.update()
+            
+            # Crear diálogo de edición
+            dialog = ft.AlertDialog(
+                title=ft.Text("✏️ Editar Reserva"),
+                content=ft.Column([edit_nombre, edit_telefono, edit_fecha, edit_hora, edit_personas], width=400, height=300, scroll=ft.ScrollMode.AUTO),
+                actions=[
+                    ft.TextButton("Cancelar", on_click=cancelar_edicion),
+                    ft.ElevatedButton("Guardar Cambios", bgcolor=ft.Colors.GREEN, color=ft.Colors.WHITE, on_click=guardar_cambios)
+                ]
+            )
+            
+            page.dialog = dialog
+            dialog.open = True
+            page.update()
+        
+        return on_edit
     
     def actualizar_lista():
         lista_reservas.controls.clear()
@@ -106,12 +170,20 @@ def main(page: ft.Page):
                                 padding=10,
                                 border_radius=15
                             ),
-                            ft.IconButton(
-                                icon=ft.icons.DELETE,
-                                icon_color=ft.Colors.RED,
-                                tooltip="Cancelar reserva",
-                                on_click=cancelar_reserva(reserva)
-                            )
+                            ft.Row([
+                                ft.IconButton(
+                                    icon=ft.icons.EDIT,
+                                    icon_color=ft.Colors.BLUE,
+                                    tooltip="Editar reserva",
+                                    on_click=editar_reserva(reserva)
+                                ),
+                                ft.IconButton(
+                                    icon=ft.icons.DELETE,
+                                    icon_color=ft.Colors.RED,
+                                    tooltip="Cancelar reserva",
+                                    on_click=cancelar_reserva(reserva)
+                                )
+                            ], spacing=5)
                         ])
                     ]),
                     bgcolor=ft.Colors.BROWN_50,
